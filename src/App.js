@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './images/dp_logo.png';
 import './App.css';
 import rock from './images/rock.jpeg';
 import scissors from './images/scissors.jpg';
@@ -13,11 +13,19 @@ class App extends Component {
     super(props);
     this.state = {
       prompt: 'Ready',
-      image: null
+      image: null,
+      kidsScore: 0,
+      compScore: 0
     }
   }
 
   playGame() {
+
+    const { prompt, image } = this.state;
+
+    if (image) this.setState({image: null});
+    if (prompt === 'Scissor') this.setState({prompt: 'Ready'});
+
     setTimeout(() => {
       this.setState({prompt: 'Rock'});
     }, 1000);
@@ -37,29 +45,69 @@ class App extends Component {
 
 
   render() {
-    const { prompt, image } = this.state;
+    const { prompt, image, kidsScore, compScore } = this.state;
 
     return (
+      
       <div className="App">
+
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Rock Paper Scissor Challenge</h2>
         </div>
-        <p className="App-intro">
-          {prompt}
-        </p>
 
-        <p className="App-intro">
-          <img src={`${image}`} alt=''/>
-        </p>
+        <div className="row">
+          <div className="col-md-6"> 
+            <h2> Kid's Score </h2> 
+          </div>
+          <div className="col-md-6"> 
+            <h2>Computer Score</h2> 
+          </div>
+        </div>
 
+        <div className="row">
+          <div className="col-md-6 score-count"> {kidsScore} </div>
+          <div className="col-md-6 score-count"> {compScore} </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6"> 
+             <button
+              type="button"
+              className="btn btn-success btn-lg"
+              onClick={() => this.setState({kidsScore: kidsScore + 1}) }
+            >
+              +1
+            </button>
+          </div>
+          <div className="col-md-6"> 
+            <button
+              type="button"
+              className="btn btn-success btn-lg"
+              onClick={() => this.setState({ compScore: compScore + 1 }) }
+            >
+              +1
+            </button>
+          </div>
+        </div>
+
+        { !image ? 
+          <p className="App-intro prompt-text">
+            {prompt}
+          </p>
+          :
+          <p className="App-intro">
+            <img src={`${image}`}  className="image" alt=''/>
+          </p>
+        }
         <button 
           type="button" 
-          className="btn btn-primary"
+          className="btn btn-success btn-lg"
           onClick={() => this.playGame()}
         >
-          Play
+          {image ? 'Play Again' : 'Play'}
         </button>
+
       </div>
     );
   }
