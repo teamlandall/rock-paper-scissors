@@ -28,19 +28,19 @@ class App extends Component {
 
     setTimeout(() => {
       this.setState({prompt: 'Rock'});
-    }, 1000);
+    }, 750);
 
     setTimeout(() => {
       this.setState({ prompt: 'Paper' });
-    }, 2000);
+    }, 1500);
 
     setTimeout(() => {
       this.setState({ prompt: 'Scissor' });
-    }, 3000);
+    }, 2250);
 
     setTimeout(() => {
-      this.setState({ image: IMAGES[Math.floor(Math.random() * 2)] });
-    }, 4000);
+      this.setState({ image: IMAGES[Math.floor(Math.random() * 3)] });
+    }, 3000);
   }
 
 
@@ -107,7 +107,6 @@ class App extends Component {
         >
           {image ? 'Play Again' : 'Play'}
         </button>
-
       </div>
     );
   }
